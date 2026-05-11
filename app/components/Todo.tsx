@@ -8,7 +8,7 @@ type Todo = {
 };
 
 export default function Todo() {
-  const [todos, setTodos] = useState<Todo[]>(localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")!) : []);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [input, setInput] = useState("");
 
   function addTodo() {
@@ -22,11 +22,7 @@ export default function Todo() {
     setTodos([...todos, newTodo]); // add new todo to existing list of todos
     setInput("");
   }
-  // useEffect() keep storing added todos
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-    console.log(localStorage.getItem("todos"));
-  }, [todos]);
+
   // hook to load existing todos to new ones into it
   useEffect(() => {
     const storedTodos = localStorage.getItem("todos");
@@ -34,6 +30,11 @@ export default function Todo() {
       setTodos(JSON.parse(storedTodos));
     }
   }, []);
+
+  // useEffect() keep storing added todos
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
 
   return (

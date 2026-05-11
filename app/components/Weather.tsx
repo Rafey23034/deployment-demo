@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {fetchWeather} from "../api/weather/route";
+import {GET} from "../api/weather/route";
 
 export default function Weather() {
 
@@ -9,11 +9,13 @@ export default function Weather() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchWeather().then((data) => {
-        // console.log("Weather data:", data);
+    async function fetchData() { 
+      const res = await fetch("/api/weather");
+      const data = await res.json();
       setData(data);
       setLoading(false);
-    });
+    }
+    fetchData();
   }, []);
 
   if (loading) {

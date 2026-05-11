@@ -1,7 +1,6 @@
-// dont use use client because this is a server component that fetches data from an API route
+import type { NextRequest } from "next/server";
 
-export async function GET() {
-
+export async function GET(request: NextRequest) {
   const key = process.env.OPENWEATHER_API_KEY;
 
   const res = await fetch(
